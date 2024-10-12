@@ -18,7 +18,7 @@ const registerUser = async (req, res) => {
     if (exists) {
       return res.json({
         success: false,
-        messsage: "User Already Exists",
+        message: "User Already Exists",
       });
     }
 
@@ -26,13 +26,13 @@ const registerUser = async (req, res) => {
     if (!validator.isEmail(email)) {
       return res.json({
         success: false,
-        messsage: "Please Enter Valid email",
+        message: "Please Enter Valid email",
       });
     }
     if (password.length < 8) {
       return res.json({
         success: false,
-        messsage: "Please Enter a Strong Password",
+        message: "Please Enter a Strong Password",
       });
     }
 
@@ -72,7 +72,7 @@ const userLogin = async (req, res) => {
     if (!user) {
       return res.json({
         success: false,
-        messsage: "User Doesn't exists",
+        message: "User Doesn't exists",
       });
     }
     const isMatch = await bcrypt.compare(password, user.password);
@@ -81,6 +81,7 @@ const userLogin = async (req, res) => {
       const token = createToken(user._id);
       res.status(200).json({
         success: true,
+        message: "Login SuccessfUll",
         token,
       });
     } else {
