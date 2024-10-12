@@ -1,4 +1,4 @@
-import { json } from "express";
+import express from "express";
 import userModel from "../models/userModel.js";
 
 //add product to user cart
@@ -37,7 +37,7 @@ const addToCart = async (req, res) => {
 //update to user cart
 const updateCart = async (req, res) => {
   try {
-    const { userId, itemId, size, quantity } = res.body;
+    const { userId, itemId, size, quantity } = req.body;
 
     const userData = await userModel.findById(userId);
     let cartData = await userData.cartData;
@@ -50,6 +50,8 @@ const updateCart = async (req, res) => {
       message: "Cart Updated",
     });
   } catch (error) {
+    console.log(error, "BAPPY");
+
     res.json({
       success: false,
       message: error.message,
